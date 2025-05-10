@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片压缩工具</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-compress-alt"></i>
+                <h1>图片压缩工具</h1>
+            </div>
+            <p class="subtitle">简单、高效的在线图片压缩服务</p>
+        </header>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <!-- 上传区域 -->
+            <section class="upload-section" id="upload-section">
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>拖放图片到这里或</p>
+                    <label for="file-input" class="upload-btn">选择图片</label>
+                    <input type="file" id="file-input" accept="image/png, image/jpeg, image/jpg" multiple hidden>
+                    <p class="file-types">支持 PNG、JPG 格式，可多选或批量拖放</p>
+                </div>
+            </section>
+
+            <!-- 批量压缩控制和预览区域 (初始隐藏) -->
+            <section class="batch-section" id="batch-section" style="display: none;">
+                <div class="control-panel">
+                    <h2>批量压缩设置</h2>
+                    <div class="slider-container">
+                        <label for="batch-quality-slider">压缩质量: <span id="batch-quality-value">80%</span></label>
+                        <input type="range" id="batch-quality-slider" min="1" max="100" value="80" class="slider">
+                    </div>
+                    <button id="batch-compress-btn" class="action-btn">批量压缩</button>
+                    <button id="batch-reset-btn" class="secondary-btn">重新上传</button>
+                </div>
+
+                <!-- 批量文件列表 -->
+                <div class="batch-files-container">
+                    <h3>待处理图片 (<span id="file-count">0</span>)</h3>
+                    <div class="batch-files-list" id="batch-files-list">
+                        <!-- 文件列表将通过JS动态生成 -->
+                    </div>
+                    
+                    <div class="batch-actions">
+                        <button id="batch-download-btn" class="action-btn" disabled>
+                            <i class="fas fa-download"></i> 批量下载
+                        </button>
+                        <p class="batch-info">总压缩率: <span id="total-compression-rate">0%</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 单张压缩控制和预览区域 (初始隐藏) -->
+            <section class="compression-section" id="compression-section" style="display: none;">
+                <!-- 压缩控制 -->
+                <div class="control-panel">
+                    <h2>压缩设置</h2>
+                    <div class="slider-container">
+                        <label for="quality-slider">压缩质量: <span id="quality-value">80%</span></label>
+                        <input type="range" id="quality-slider" min="1" max="100" value="80" class="slider">
+                    </div>
+                    <button id="compress-btn" class="action-btn">压缩图片</button>
+                    <button id="reset-btn" class="secondary-btn">重新上传</button>
+                </div>
+
+                <!-- 预览区域 -->
+                <div class="preview-container">
+                    <div class="preview-box">
+                        <h3>原始图片</h3>
+                        <div class="image-container">
+                            <img id="original-image" src="" alt="原始图片">
+                        </div>
+                        <div class="file-info">
+                            <p>文件大小: <span id="original-size">0 KB</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-box">
+                        <h3>压缩后图片</h3>
+                        <div class="image-container">
+                            <img id="compressed-image" src="" alt="压缩后图片">
+                        </div>
+                        <div class="file-info">
+                            <p>文件大小: <span id="compressed-size">0 KB</span></p>
+                            <p>压缩率: <span id="compression-rate">0%</span></p>
+                        </div>
+                        <button id="download-btn" class="action-btn" disabled>
+                            <i class="fas fa-download"></i> 下载图片
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2024 图片压缩工具 | 所有操作均在浏览器中完成，您的图片不会上传到服务器</p>
+        </footer>
+    </div>
+
+    <!-- 引入JSZip库用于批量下载 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- 引入FileSaver库用于保存ZIP文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- 引入压缩库 -->
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"></script>
+    <!-- 引入自定义脚本 -->
+    <script src="script.js"></script>
+</body>
+</html> 
